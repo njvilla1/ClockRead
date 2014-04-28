@@ -8,20 +8,29 @@
    android:paddingTop="@dimen/activity_vertical_margin"
    tools:context=".MainActivity"> 
 
-   <ImageView
-   android:id="@+id/imageView1"
-   android:layout_width="match_parent"
-   android:layout_height="match_parent"
-   android:layout_marginLeft="20dp"
-   android:layout_marginTop="20dp"
-   android:contentDescription="image description" />
-
    <TextView
    android:id="@+id/textView1"
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
    android:layout_alignParentTop="true"
-   android:layout_alignLeft="@+id/imageView1"
    android:text="read clock main activity" />
+   
+	<Button
+       android:id="@+id/buttonEdgeDetection"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/textView1"
+       android:text="do edge detection" />
+   
+   
+   <ImageView
+   android:id="@+id/imageView1"
+   android:layout_width="wrap_content"
+   android:layout_height="wrap_content"
+   android:layout_below="@+id/buttonEdgeDetection"
+   android:contentDescription="image description"
+   android:src="@drawable/ic_launcher"/>
+
+   
 
 </RelativeLayout>

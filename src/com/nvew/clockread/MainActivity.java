@@ -10,15 +10,22 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.graphics.BitmapFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 public class MainActivity extends Activity{// implements CvCameraViewListener{
 
 	ImageView imgView;
 	Bitmap bp = null;
+	Bitmap nbp = null;
 	
 	private static final String TAG = "ClockRead";
 	
@@ -56,6 +63,11 @@ public class MainActivity extends Activity{// implements CvCameraViewListener{
              startActivityForResult(intent, 0);
          }
       });
+      
+      Bitmap newbp = null;
+      
+      
+      
    }
 
    @Override
@@ -64,6 +76,28 @@ public class MainActivity extends Activity{// implements CvCameraViewListener{
       super.onActivityResult(requestCode, resultCode, data);
       bp = (Bitmap) data.getExtras().get("data");
       imgView.setImageBitmap(bp);
+      
+      int pixels[] = new int[bp.getWidth() * bp.getHeight()];
+      
+      nbp = bp.copy(Bitmap.Config.ARGB_8888, true);
+      //Bitmap.createBitmap(pixels, bp.getWidth(), bp.getHeight(), Bitmap.Config.ARGB_8888);
+      
+      for(int x=0; x < bp.getWidth(); x++){
+    	  for(int y = 0; y < bp.getHeight(); y++){
+    		  int pixelvalue = bp.getPixel(x, y);
+    		  int rValue = Color.red(pixelvalue);
+    		  int gValue = Color.green(pixelvalue);
+    		  int bValue = Color.blue(pixelvalue);
+    		  
+    		  //Log.v(TAG,Integer.toString(bValue));
+    		  nbp.setPixel(x,y,Color.rgb(rValue,gValue,bValue/4));
+    		  //pixels[x*y] = Color.rgb(50,50, 50);
+    		  
+    	  }
+      }
+      
+      Log.v(TAG, Boolean.toString(nbp.isMutable()));
+      imgView.setImageBitmap(nbp);
    }
    @Override
    public boolean onCreateOptionsMenu(Menu menu) {
